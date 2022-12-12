@@ -54,6 +54,7 @@ namespace Aqua_Kursach
                         particlesToCreate -= 1; // поэтому уменьшаем счётчик созданных частиц на 1
                         ResetParticle(particle);
                     }
+                    ResetParticle(particle);
                 }
                 else
                 {

@@ -32,7 +32,12 @@ namespace Aqua_Kursach
             this.components = new System.ComponentModel.Container();
             this.picDisplay = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tbDirection = new System.Windows.Forms.TrackBar();
+            this.lblDirection = new System.Windows.Forms.Label();
+            this.tbGravitonPower = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbGravitonPower)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -50,16 +55,48 @@ namespace Aqua_Kursach
             this.timer1.Interval = 40;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // tbDirection
+            // 
+            this.tbDirection.Location = new System.Drawing.Point(12, 451);
+            this.tbDirection.Maximum = 359;
+            this.tbDirection.Name = "tbDirection";
+            this.tbDirection.Size = new System.Drawing.Size(149, 56);
+            this.tbDirection.TabIndex = 1;
+            this.tbDirection.Scroll += new System.EventHandler(this.tbDirection_Scroll);
+            // 
+            // lblDirection
+            // 
+            this.lblDirection.AutoSize = true;
+            this.lblDirection.Location = new System.Drawing.Point(168, 471);
+            this.lblDirection.Name = "lblDirection";
+            this.lblDirection.Size = new System.Drawing.Size(0, 17);
+            this.lblDirection.TabIndex = 2;
+            // 
+            // tbGravitonPower
+            // 
+            this.tbGravitonPower.Location = new System.Drawing.Point(174, 451);
+            this.tbGravitonPower.Maximum = 100;
+            this.tbGravitonPower.Name = "tbGravitonPower";
+            this.tbGravitonPower.Size = new System.Drawing.Size(154, 56);
+            this.tbGravitonPower.TabIndex = 3;
+            this.tbGravitonPower.Scroll += new System.EventHandler(this.tbGravitonPower_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(851, 500);
+            this.Controls.Add(this.tbGravitonPower);
+            this.Controls.Add(this.lblDirection);
+            this.Controls.Add(this.tbDirection);
             this.Controls.Add(this.picDisplay);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbGravitonPower)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -67,6 +104,9 @@ namespace Aqua_Kursach
 
         private System.Windows.Forms.PictureBox picDisplay;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TrackBar tbDirection;
+        private System.Windows.Forms.Label lblDirection;
+        private System.Windows.Forms.TrackBar tbGravitonPower;
     }
 }
 
