@@ -21,19 +21,21 @@ namespace Aqua_Kursach
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
 
+
             this.emitter = new Emitter // создаю эмиттер и привязываю его к полю emitter
             {
                 Direction = 0,
                 Spreading = 10,
                 SpeedMin = 10,
                 SpeedMax = 10,
-                ColorFrom = Color.Gold,
-                ColorTo = Color.FromArgb(0, Color.Red),
+                ColorFrom = Color.Blue,
+                ColorTo = Color.FromArgb(0, Color.SkyBlue),
                 ParticlesPerTick = 10,
                 X = picDisplay.Width / 2,
                 Y = picDisplay.Height / 2,
             };
 
+           
             emitters.Add(this.emitter); // все равно добавляю в список emitters, чтобы он рендерился и обновлялся
 
 
@@ -49,6 +51,26 @@ namespace Aqua_Kursach
                 X = picDisplay.Width / 2 - 100,
                 Y = picDisplay.Height / 2,
             });
+            Bitmap image; //Bitmap для открываемого изображения
+
+            OpenFileDialog open_dialog = new OpenFileDialog(); //создание диалогового окна для выбора файла
+            open_dialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*"; //формат загружаемого файла
+            if (open_dialog.ShowDialog() == DialogResult.OK) //если в окне была нажата кнопка "ОК"
+            {
+                try
+                {
+                    image = new Bitmap(open_dialog.FileName);
+                    //вместо pictureBox1 укажите pictureBox, в который нужно загрузить изображение 
+                    this.sidePictureBox.Size = image.Size;
+                    sidePictureBox.Image = image;
+                    sidePictureBox.Invalidate();
+                }
+                catch
+                {
+                    DialogResult rezult = MessageBox.Show("Невозможно открыть выбранный файл",
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
 
