@@ -14,6 +14,7 @@ namespace Aqua_Kursach
     {
         List<Emitter> emitters = new List<Emitter>();
         Emitter emitter; // добавим поле для эмиттера
+        MouseRadar radar;
 
         List<Particle> particles = new List<Particle>();
         public Form1()
@@ -53,7 +54,7 @@ namespace Aqua_Kursach
             });
             Bitmap image; //Bitmap для открываемого изображения
 
-            OpenFileDialog open_dialog = new OpenFileDialog(); //создание диалогового окна для выбора файла
+            /*OpenFileDialog open_dialog = new OpenFileDialog(); //создание диалогового окна для выбора файла
             open_dialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*"; //формат загружаемого файла
             if (open_dialog.ShowDialog() == DialogResult.OK) //если в окне была нажата кнопка "ОК"
             {
@@ -70,7 +71,7 @@ namespace Aqua_Kursach
                     DialogResult rezult = MessageBox.Show("Невозможно открыть выбранный файл",
                     "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            }*/
         }
 
 
@@ -93,6 +94,7 @@ namespace Aqua_Kursach
         {
             emitter.MousePositionX = e.X;
             emitter.MousePositionY = e.Y;
+
         }
 
         private void tbDirection_Scroll(object sender, EventArgs e)

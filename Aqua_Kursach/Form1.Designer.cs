@@ -37,11 +37,9 @@ namespace Aqua_Kursach
             this.tbGravitonPower = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.sidePictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGravitonPower)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sidePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -56,7 +54,7 @@ namespace Aqua_Kursach
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 40;
+            this.timer1.Interval = 30;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // tbDirection
@@ -103,20 +101,11 @@ namespace Aqua_Kursach
             this.label2.TabIndex = 5;
             this.label2.Text = "Размер гравит. области";
             // 
-            // sidePictureBox
-            // 
-            this.sidePictureBox.Location = new System.Drawing.Point(806, 215);
-            this.sidePictureBox.Name = "sidePictureBox";
-            this.sidePictureBox.Size = new System.Drawing.Size(139, 125);
-            this.sidePictureBox.TabIndex = 6;
-            this.sidePictureBox.TabStop = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1013, 500);
-            this.Controls.Add(this.sidePictureBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbGravitonPower);
@@ -128,7 +117,6 @@ namespace Aqua_Kursach
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGravitonPower)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sidePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,7 +131,6 @@ namespace Aqua_Kursach
         private System.Windows.Forms.TrackBar tbGravitonPower;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox sidePictureBox;
     }
 }
 
