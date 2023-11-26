@@ -37,6 +37,7 @@ namespace Aqua_Kursach
             this.tbGravitonPower = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGravitonPower)).BeginInit();
@@ -54,7 +55,7 @@ namespace Aqua_Kursach
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 30;
+            this.timer1.Interval = 15;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // tbDirection
@@ -101,6 +102,12 @@ namespace Aqua_Kursach
             this.label2.TabIndex = 5;
             this.label2.Text = "Размер гравит. области";
             // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 10;
+            this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -131,6 +138,7 @@ namespace Aqua_Kursach
         private System.Windows.Forms.TrackBar tbGravitonPower;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 

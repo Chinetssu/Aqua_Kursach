@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Aqua_Kursach
 {
-    class MouseRadar : ImpactPoint
+    class Radar : ImpactPoint
     {
         public override void ImpactParticle(Particle particle)
         {
