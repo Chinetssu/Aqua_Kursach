@@ -9,7 +9,7 @@ namespace Aqua_Kursach
 {
     public class GravityPoint : ImpactPoint
     {
-        public int Power = 100; // сила притяжения
+        public int Power = 200; // сила притяжения
 
         public override void ImpactParticle(Particle particle)
         {

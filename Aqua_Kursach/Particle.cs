@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Aqua_Kursach
 {
@@ -34,6 +35,37 @@ namespace Aqua_Kursach
             Life = 20 + rand.Next(100); // Добавили исходный запас здоровья от 20 до 120
 
         }
+
+        public virtual bool Overlaps(Particle obj, Graphics g)
+        {
+            // берем информацию о форме
+            var path1 = this.GetGraphicsPath();
+            var path2 = obj.GetGraphicsPath();
+
+            // применяем к объектам матрицы трансформации
+            path1.Transform(this.GetTransform());
+            path2.Transform(obj.GetTransform());
+
+            // используем класс Region, который позволяет определить 
+            // пересечение объектов в данном графическом контексте
+            var region = new Region(path1);
+            region.Intersect(path2); // пересекаем формы
+            return !region.IsEmpty(g); // если полученная форма не пуста то значит было пересечение
+        }
+        public Matrix GetTransform()
+        {
+            var matrix = new Matrix();
+            matrix.Translate(X, Y);
+            matrix.Rotate(350);
+
+            return matrix;
+        }
+
+        public virtual GraphicsPath GetGraphicsPath()
+        {
+            return new GraphicsPath();
+        }
+
         public virtual void Draw(Graphics g)
         {
             // рассчитываем коэффициент прозрачности по шкале от 0 до 1.0

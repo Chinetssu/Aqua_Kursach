@@ -19,10 +19,10 @@ namespace Aqua_Kursach
         public int Spreading = 360; // разброс частиц относительно Direction
         public int SpeedMin = 1; // начальная минимальная скорость движения частицы
         public int SpeedMax = 10; // начальная максимальная скорость движения частицы
-        public int RadiusMin = 2; // минимальный радиус частицы
-        public int RadiusMax = 10; // максимальный радиус частицы
-        public int LifeMin = 20;
-        public int LifeMax = 100;
+        public int RadiusMin = 5; // минимальный радиус частицы
+        public int RadiusMax = 7; // максимальный радиус частицы
+        public int LifeMin = 50;
+        public int LifeMax = 150;
 
         public int ParticlesPerTick = 1; // добавил новое поле
 

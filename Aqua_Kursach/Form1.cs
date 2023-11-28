@@ -14,6 +14,7 @@ namespace Aqua_Kursach
     {
         List<Emitter> fleeEmitters = new List<Emitter>();
         Emitter fleeEmitter; // добавим поле для эмиттера
+        TopEmitter rainEmitter;
         GravityPoint gravityPoint;
         Radar radar;
 
@@ -31,7 +32,7 @@ namespace Aqua_Kursach
                 SpeedMin = 10,
                 SpeedMax = 15,
                 ColorFrom = Color.FromArgb(255,40,30,20),
-                ColorTo = Color.FromArgb(0, Color.Black),
+                ColorTo = Color.FromArgb(100, Color.Red),
                 ParticlesPerTick = 1,
                 X = picDisplay.Width / 2 - 100,
                 Y = picDisplay.Height / 2,
@@ -48,7 +49,7 @@ namespace Aqua_Kursach
                 SpeedMin = 10,
                 SpeedMax = 15,
                 ColorFrom = Color.FromArgb(255, 40, 30, 20),
-                ColorTo = Color.FromArgb(0, Color.Black),
+                ColorTo = Color.FromArgb(100, Color.Red),
                 ParticlesPerTick = 1,
                 X = picDisplay.Width / 2 + 100,
                 Y = picDisplay.Height / 2,
@@ -83,14 +84,31 @@ namespace Aqua_Kursach
         int fr = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
+            var g = Graphics.FromImage(picDisplay.Image);
             fr++;
             if (fr > 1)
             {
-                foreach(Emitter emiter in fleeEmitters)
+                if (rainEmitter != null)
+                {
+                    rainEmitter.UpdateState();
+                    /*foreach (Particle particle in rainEmitter.particles)
+                    {
+                        foreach (Particle flee in fleeEmitter.particles)
+                        {
+                            if (particle.Overlaps(flee, g))
+                            {
+                                particle.Life = 3;
+                                flee.Life = 3;
+                            }
+                        }
+                    }*/
+                }
+                foreach (Emitter emiter in fleeEmitters)
                 {
                     emiter.UpdateState(); // тут теперь обновляем эмиттер
                 }
                 fr = 0;
+                
             }
         }
 
@@ -127,6 +145,8 @@ namespace Aqua_Kursach
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
                 g.Clear(Color.White);
+                if(rainEmitter!=null)
+                rainEmitter.Render(g);
                 foreach (Emitter emiter in fleeEmitters)
                 {
                     emiter.Render(g); // тут теперь обновляем эмиттер
@@ -135,6 +155,28 @@ namespace Aqua_Kursach
 
             picDisplay.Invalidate();
 
+        }
+
+        private void CheckBox1_Changed(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                rainEmitter = new TopEmitter {
+                    ColorFrom = Color.FromArgb(255, 80, 230, 100),
+                    ParticlesCount = 1,
+                    ParticlesPerTick = 1,
+                    RadiusMax = 3,
+                    RadiusMin = 3,
+                    GravitationX = 0.3f,
+                    GravitationY = 0.85f
+                   
+                };
+                rainEmitter.Width = picDisplay.Width;
+            }
+            else
+            {
+                rainEmitter = null;
+            }
         }
     }
 }
