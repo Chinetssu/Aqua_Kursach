@@ -12,18 +12,29 @@ namespace Aqua_Kursach
 {
     public partial class Form1 : Form
     {
-        List<Emitter> fleeEmitters = new List<Emitter>();
+        List<IDynamic> dynamicComponents = new List<IDynamic>();
         Emitter fleeEmitter; // добавим поле для эмиттера
         TopEmitter rainEmitter;
         GravityPoint gravityPoint;
         Radar radar;
 
-        List<Particle> particles = new List<Particle>();
         public Form1()
         {
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
 
+            rainEmitter = new TopEmitter
+            {
+                ColorFrom = Color.FromArgb(255, 80, 230, 100),
+                ParticlesCount = 1,
+                ParticlesPerTick = 1,
+                RadiusMax = 3,
+                RadiusMin = 3,
+                GravitationX = 0.3f,
+                GravitationY = 0.85f
+
+            };
+            rainEmitter.Width = picDisplay.Width;
 
             this.fleeEmitter = new Emitter // создаю эмиттер и привязываю его к полю emitter
             {
@@ -38,7 +49,7 @@ namespace Aqua_Kursach
                 Y = picDisplay.Height / 2,
             };
 
-            fleeEmitters.Add(this.fleeEmitter);
+            dynamicComponents.Add(this.fleeEmitter);
 
          
 
@@ -55,16 +66,17 @@ namespace Aqua_Kursach
                 Y = picDisplay.Height / 2,
             };
 
-            fleeEmitters.Add(this.fleeEmitter);
+            dynamicComponents.Add(this.fleeEmitter);
 
             gravityPoint = new GravityPoint
             {
                 X = picDisplay.Width / 2 + 100,
                 Y = picDisplay.Height / 2,
             };
-            foreach (var em in fleeEmitters)
+            foreach (var em in dynamicComponents)
             {
-                em.impactPoints.Add(gravityPoint);
+                if (em is Emitter)
+                    (em as Emitter).impactPoints.Add(gravityPoint);
             }
 
             gravityPoint = new GravityPoint
@@ -72,45 +84,29 @@ namespace Aqua_Kursach
                 X = picDisplay.Width / 2 - 100,
                 Y = picDisplay.Height / 2,
             };
-            foreach (var em in fleeEmitters)
+            foreach (var em in dynamicComponents)
             {
-                em.impactPoints.Add(gravityPoint);
+                if (em is Emitter)
+                    (em as Emitter).impactPoints.Add(gravityPoint);
             }
+            radar = new Radar(picDisplay.Width/2, picDisplay.Height);
 
         }
 
 
         /*int counter = 0; // добавлю счетчик чтобы считать вызовы функции*/
-        int fr = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            var g = Graphics.FromImage(picDisplay.Image);
-            fr++;
-            if (fr > 1)
             {
-                if (rainEmitter != null)
+                foreach (IDynamic dComponent in dynamicComponents)
                 {
-                    rainEmitter.UpdateState();
-                    /*foreach (Particle particle in rainEmitter.particles)
-                    {
-                        foreach (Particle flee in fleeEmitter.particles)
-                        {
-                            if (particle.Overlaps(flee, g))
-                            {
-                                particle.Life = 3;
-                                flee.Life = 3;
-                            }
-                        }
-                    }*/
+                    dComponent.UpdateState(); // тут теперь обновляем эмиттер
                 }
-                foreach (Emitter emiter in fleeEmitters)
-                {
-                    emiter.UpdateState(); // тут теперь обновляем эмиттер
-                }
-                fr = 0;
-                
+                if (!radar.existance)
+                    dynamicComponents.Remove(radar);
             }
         }
+
 
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
@@ -127,16 +123,16 @@ namespace Aqua_Kursach
 
         private void tbGravitonPower_Scroll(object sender, EventArgs e)
         {
-            foreach (var em in fleeEmitters)
-            {
-                foreach (var p in em.impactPoints)
-                {
-                    if (p is GravityPoint) // так как impactPoints не обязательно содержит поле Power, надо проверить на тип 
-                    {
-                        // если гравитон то меняем силу
-                        (p as GravityPoint).Power = tbGravitonPower.Value;
-                    }
-                }
+            foreach (var em in dynamicComponents) {
+                if (em is Emitter)
+                   foreach (var p in (em as Emitter).impactPoints)
+                   {
+                        if (p is GravityPoint) // так как impactPoints не обязательно содержит поле Power, надо проверить на тип 
+                        {
+                            // если гравитон то меняем силу
+                            (p as GravityPoint).Power = tbGravitonPower.Value;
+                        }
+                   }
             }
         }
 
@@ -145,11 +141,9 @@ namespace Aqua_Kursach
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
                 g.Clear(Color.White);
-                if(rainEmitter!=null)
-                rainEmitter.Render(g);
-                foreach (Emitter emiter in fleeEmitters)
+                foreach (IDynamic dComponent in dynamicComponents)
                 {
-                    emiter.Render(g); // тут теперь обновляем эмиттер
+                    dComponent.Render(g); // тут теперь обновляем эмиттер
                 }
             }
 
@@ -161,21 +155,24 @@ namespace Aqua_Kursach
         {
             if (checkBox1.Checked)
             {
-                rainEmitter = new TopEmitter {
-                    ColorFrom = Color.FromArgb(255, 80, 230, 100),
-                    ParticlesCount = 1,
-                    ParticlesPerTick = 1,
-                    RadiusMax = 3,
-                    RadiusMin = 3,
-                    GravitationX = 0.3f,
-                    GravitationY = 0.85f
-                   
-                };
-                rainEmitter.Width = picDisplay.Width;
+                dynamicComponents.Add(rainEmitter);
             }
             else
             {
-                rainEmitter = null;
+                dynamicComponents.Remove(rainEmitter);
+            }
+        }
+
+        private void ButtonRadar_Click(object sender, EventArgs e)
+        {
+            radar.existance = true;
+            radar.LifeMax = 30;
+            radar.Life = 30;
+            dynamicComponents.Add(radar);
+            foreach(IDynamic DC in dynamicComponents)
+            {
+                if(DC is Emitter)
+                (DC as Emitter).impactPoints.Add(radar);
             }
         }
     }

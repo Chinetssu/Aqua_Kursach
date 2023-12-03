@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Aqua_Kursach
 {
-    class Emitter
+    class Emitter : IDynamic
     {
 
         public List<Particle> particles = new List<Particle>();
@@ -34,11 +34,18 @@ namespace Aqua_Kursach
         public float GravitationY = 1; // пусть гравитация будет силой один пиксель за такт, нам хватит
         public int MousePositionX;
         public int MousePositionY;
-        public void UpdateState()
+        public virtual void UpdateState()
         {
-
+            foreach (ImpactPoint point in impactPoints)
+            {
+                if (point is Radar)
+                    if ((point as Radar).existance == false)
+                    {
+                        impactPoints.Remove(point);
+                        break;
+                    }
+            }
             int particlesToCreate = ParticlesPerTick; // фиксируем счетчик сколько частиц нам создавать за тик
-
             foreach (var particle in particles)
             {
                 particle.Life -= 1; // уменьшаю здоровье
@@ -64,6 +71,19 @@ namespace Aqua_Kursach
                         point.ImpactParticle(particle);
                     }
 
+                    //Проверяем освещённость частицы
+                    if (particle is ParticleColorful)
+                    {
+                        if (particle.Alight > 0)
+                        {
+                            particle.Alight--;
+                        }
+                        else
+                        {
+                            (particle as ParticleColorful).FromColor = ColorFrom;
+                            (particle as ParticleColorful).ToColor = ColorTo;
+                        }
+                    }
                     // гравитация воздействует на вектор скорости, поэтому пересчитываем его
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
@@ -79,6 +99,7 @@ namespace Aqua_Kursach
                 ResetParticle(particle);
                 particles.Add(particle);
             }
+            
         }
 
         public void Render(Graphics g)

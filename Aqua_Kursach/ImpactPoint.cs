@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
+
 namespace Aqua_Kursach
 {
     public abstract class ImpactPoint
@@ -15,7 +16,6 @@ namespace Aqua_Kursach
         // абстрактный метод с помощью которого будем изменять состояние частиц
         // например притягивать
         public abstract void ImpactParticle(Particle particle);
-
         // базовый класс для отрисовки точечки
         public virtual void Render(Graphics g)
         {
@@ -27,5 +27,10 @@ namespace Aqua_Kursach
                     10
                 );
         }
+
+    }
+    public abstract class VariableImpactPoints : ImpactPoint
+    {
+        public abstract void UpdateState();
     }
 }

@@ -39,6 +39,8 @@ namespace Aqua_Kursach
             this.label2 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.buttonRadar = new System.Windows.Forms.Button();
+            this.labelScanHP = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGravitonPower)).BeginInit();
@@ -56,7 +58,7 @@ namespace Aqua_Kursach
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 15;
+            this.timer1.Interval = 20;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // tbDirection
@@ -120,11 +122,32 @@ namespace Aqua_Kursach
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_Changed);
             // 
+            // buttonRadar
+            // 
+            this.buttonRadar.Location = new System.Drawing.Point(806, 245);
+            this.buttonRadar.Name = "buttonRadar";
+            this.buttonRadar.Size = new System.Drawing.Size(101, 29);
+            this.buttonRadar.TabIndex = 7;
+            this.buttonRadar.Text = "Сканер";
+            this.buttonRadar.UseVisualStyleBackColor = true;
+            this.buttonRadar.Click += new System.EventHandler(this.ButtonRadar_Click);
+            // 
+            // labelScanHP
+            // 
+            this.labelScanHP.AutoSize = true;
+            this.labelScanHP.Location = new System.Drawing.Point(819, 319);
+            this.labelScanHP.Name = "labelScanHP";
+            this.labelScanHP.Size = new System.Drawing.Size(24, 17);
+            this.labelScanHP.TabIndex = 8;
+            this.labelScanHP.Text = "hp";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1013, 500);
+            this.Controls.Add(this.labelScanHP);
+            this.Controls.Add(this.buttonRadar);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -153,6 +176,8 @@ namespace Aqua_Kursach
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button buttonRadar;
+        private System.Windows.Forms.Label labelScanHP;
     }
 }
 
