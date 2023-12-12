@@ -99,9 +99,9 @@ namespace Aqua_Kursach
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(808, 120);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(147, 21);
+            this.checkBox1.Size = new System.Drawing.Size(73, 21);
             this.checkBox1.TabIndex = 6;
-            this.checkBox1.Text = "Кислотный дождь";
+            this.checkBox1.Text = "Дождь";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_Changed);
             // 
