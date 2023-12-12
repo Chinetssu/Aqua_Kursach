@@ -42,6 +42,7 @@ namespace Aqua_Kursach
             this.checkBox_Step = new System.Windows.Forms.CheckBox();
             this.tbTimeTrack = new System.Windows.Forms.TrackBar();
             this.buttonStep = new System.Windows.Forms.Button();
+            this.buttonDetails = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGravitonPower)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbTimeTrack)).BeginInit();
@@ -156,11 +157,22 @@ namespace Aqua_Kursach
             this.buttonStep.UseVisualStyleBackColor = true;
             this.buttonStep.Click += new System.EventHandler(this.buttonStep_Click);
             // 
+            // buttonDetails
+            // 
+            this.buttonDetails.Location = new System.Drawing.Point(808, 357);
+            this.buttonDetails.Name = "buttonDetails";
+            this.buttonDetails.Size = new System.Drawing.Size(101, 29);
+            this.buttonDetails.TabIndex = 12;
+            this.buttonDetails.Text = "Детали";
+            this.buttonDetails.UseVisualStyleBackColor = true;
+            this.buttonDetails.Click += new System.EventHandler(this.buttonDetails_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1013, 500);
+            this.Controls.Add(this.buttonDetails);
             this.Controls.Add(this.buttonStep);
             this.Controls.Add(this.tbTimeTrack);
             this.Controls.Add(this.checkBox_Step);
@@ -195,6 +207,7 @@ namespace Aqua_Kursach
         private System.Windows.Forms.CheckBox checkBox_Step;
         private System.Windows.Forms.TrackBar tbTimeTrack;
         private System.Windows.Forms.Button buttonStep;
+        private System.Windows.Forms.Button buttonDetails;
     }
 }
 

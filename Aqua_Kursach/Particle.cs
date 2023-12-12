@@ -13,6 +13,7 @@ namespace Aqua_Kursach
         public int Radius; // радуис частицы
         public float X; // X координата положения частицы в пространстве
         public float Y; // Y координата положения частицы в пространстве
+        public bool Detailed = false;
 
         public float SpeedX; // скорость перемещения по оси X
         public float SpeedY; // скорость перемещения по оси Y
@@ -92,7 +93,6 @@ namespace Aqua_Kursach
         // два новых поля под цвет начальный и конечный
         public Color FromColor;
         public Color ToColor;
-        public bool detailed = true;
 
         // для смеси цветов
         public static Color MixColor(Color color1, Color color2, float k)
@@ -115,7 +115,7 @@ namespace Aqua_Kursach
             var b = new SolidBrush(color);
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
 
-            if (detailed)
+            if (Detailed)
             {
                 var p = new Pen(color);
 

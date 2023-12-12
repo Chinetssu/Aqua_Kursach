@@ -17,15 +17,15 @@ namespace Aqua_Kursach
         TopEmitter rainEmitter;
         GravityPoint gravityPoint;
         Radar radar;
+        Informer informer = new Informer(250, 200);
 
         public Form1()
         {
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-
             rainEmitter = new TopEmitter
             {
-                ColorFrom = Color.FromArgb(255, 80, 230, 100),
+                ColorFrom = Color.FromArgb(255, 80, 100, 230),
                 ParticlesCount = 1,
                 ParticlesPerTick = 1,
                 RadiusMax = 3,
@@ -50,6 +50,7 @@ namespace Aqua_Kursach
             };
 
             dynamicComponents.Add(this.fleeEmitter);
+            informer.emitters.Add(fleeEmitter);
 
          
 
@@ -67,6 +68,7 @@ namespace Aqua_Kursach
             };
 
             dynamicComponents.Add(this.fleeEmitter);
+            informer.emitters.Add(fleeEmitter);
 
             gravityPoint = new GravityPoint
             {
@@ -107,7 +109,11 @@ namespace Aqua_Kursach
                 }
                 labelScanHP.Text = radar.counter.ToString();
                 if (!radar.existance)
+                {
+
+                    buttonRadar.Enabled = true;
                     dynamicComponents.Remove(radar);
+                }
             }
         }
 
@@ -121,8 +127,8 @@ namespace Aqua_Kursach
 
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
-            fleeEmitter.MousePositionX = e.X;
-            fleeEmitter.MousePositionY = e.Y;
+            informer.X = e.X;
+            informer.Y = e.Y;
 
         }
 
@@ -161,10 +167,12 @@ namespace Aqua_Kursach
             if (checkBox1.Checked)
             {
                 dynamicComponents.Add(rainEmitter);
+                informer.emitters.Add(rainEmitter);
             }
             else
             {
                 dynamicComponents.Remove(rainEmitter);
+                informer.emitters.Remove(rainEmitter);
             }
         }
 
@@ -176,9 +184,10 @@ namespace Aqua_Kursach
             dynamicComponents.Add(radar);
             foreach(IDynamic DC in dynamicComponents)
             {
-                if(DC is Emitter)
+                if(DC is Emitter&&!(DC is TopEmitter))
                 (DC as Emitter).impactPoints.Add(radar);
             }
+            buttonRadar.Enabled = false;
         }
 
         private void tbTimeTrack_Scroll(object sender, EventArgs e)
@@ -203,6 +212,39 @@ namespace Aqua_Kursach
         private void buttonStep_Click(object sender, EventArgs e)
         {
             Tick();
+        }
+
+        private void buttonDetails_Click(object sender, EventArgs e)
+        {
+            if (dynamicComponents.Contains(informer))
+            {
+
+            dynamicComponents.Remove(informer);
+            foreach(var comp in dynamicComponents)
+            {
+                if (comp is Emitter)
+                {
+                    foreach(Particle p in (comp as Emitter).particles)
+                    {
+                        p.Detailed = false;
+                    }
+                }
+            }
+            }
+            else
+            {
+                dynamicComponents.Add(informer);
+                foreach (var comp in dynamicComponents)
+                {
+                    if (comp is Emitter)
+                    {
+                        foreach (Particle p in (comp as Emitter).particles)
+                        {
+                            p.Detailed = true;
+                        }
+                    }
+                }
+            }
         }
     }
 }
