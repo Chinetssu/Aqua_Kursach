@@ -43,7 +43,7 @@ namespace Aqua_Kursach
                 SpeedMin = 10,
                 SpeedMax = 15,
                 ColorFrom = Color.FromArgb(255,40,30,20),
-                ColorTo = Color.FromArgb(100, Color.Red),
+                ColorTo = Color.FromArgb(100, 240, 60,60),
                 ParticlesPerTick = 1,
                 X = picDisplay.Width / 2 - 100,
                 Y = picDisplay.Height / 2,
@@ -89,22 +89,33 @@ namespace Aqua_Kursach
                 if (em is Emitter)
                     (em as Emitter).impactPoints.Add(gravityPoint);
             }
-            radar = new Radar(picDisplay.Width/2, picDisplay.Height);
+            radar = new Radar(picDisplay.Width, picDisplay.Height/2);
+            foreach (var em in dynamicComponents)
+            {
+                if (em is Emitter)
+                    (em as Emitter).impactPoints.Add(radar);
+            }
 
         }
 
-
-        /*int counter = 0; // добавлю счетчик чтобы считать вызовы функции*/
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Tick()
         {
             {
                 foreach (IDynamic dComponent in dynamicComponents)
                 {
                     dComponent.UpdateState(); // тут теперь обновляем эмиттер
                 }
+                labelScanHP.Text = radar.counter.ToString();
                 if (!radar.existance)
                     dynamicComponents.Remove(radar);
             }
+        }
+
+
+        /*int counter = 0; // добавлю счетчик чтобы считать вызовы функции*/
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Tick();
         }
 
 
@@ -113,12 +124,6 @@ namespace Aqua_Kursach
             fleeEmitter.MousePositionX = e.X;
             fleeEmitter.MousePositionY = e.Y;
 
-        }
-
-        private void tbDirection_Scroll(object sender, EventArgs e)
-        {
-            fleeEmitter.Direction = tbDirection.Value; // направлению эмиттера присваиваем значение ползунка 
-            lblDirection.Text = $"{tbDirection.Value}°"; // добавил вывод значения
         }
 
         private void tbGravitonPower_Scroll(object sender, EventArgs e)
@@ -130,7 +135,7 @@ namespace Aqua_Kursach
                         if (p is GravityPoint) // так как impactPoints не обязательно содержит поле Power, надо проверить на тип 
                         {
                             // если гравитон то меняем силу
-                            (p as GravityPoint).Power = tbGravitonPower.Value;
+                            (p as GravityPoint).Power = tbGravitonPower.Value*3;
                         }
                    }
             }
@@ -174,6 +179,30 @@ namespace Aqua_Kursach
                 if(DC is Emitter)
                 (DC as Emitter).impactPoints.Add(radar);
             }
+        }
+
+        private void tbTimeTrack_Scroll(object sender, EventArgs e)
+        {
+            timer1.Interval = tbTimeTrack.Value;
+        }
+
+        private void checkBox_Step_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_Step.Checked)
+            {
+                timer1.Enabled = false;
+                buttonStep.Enabled = true;
+            }
+            else
+            {
+                timer1.Enabled = true;
+                buttonStep.Enabled = false;
+            }
+        }
+
+        private void buttonStep_Click(object sender, EventArgs e)
+        {
+            Tick();
         }
     }
 }

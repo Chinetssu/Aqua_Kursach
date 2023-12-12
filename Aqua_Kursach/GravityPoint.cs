@@ -23,13 +23,13 @@ namespace Aqua_Kursach
         public override void Render(Graphics g)
         {
             // буду рисовать окружность с диаметром равным Power
-            g.DrawEllipse(
+            /*g.DrawEllipse(
                    new Pen(Color.Red),
                    X - Power / 2,
                    Y - Power / 2,
                    Power,
                    Power
-               );
+               );*/
         }
     }
 }

@@ -70,20 +70,13 @@ namespace Aqua_Kursach
                     {
                         point.ImpactParticle(particle);
                     }
-
-                    //Проверяем освещённость частицы
-                    if (particle is ParticleColorful)
+                    if (!particle.Alight)
                     {
-                        if (particle.Alight > 0)
-                        {
-                            particle.Alight--;
-                        }
-                        else
-                        {
-                            (particle as ParticleColorful).FromColor = ColorFrom;
-                            (particle as ParticleColorful).ToColor = ColorTo;
-                        }
+                        (particle as ParticleColorful).FromColor = ColorFrom;
+                        (particle as ParticleColorful).ToColor = ColorTo;
                     }
+                    
+                   
                     // гравитация воздействует на вектор скорости, поэтому пересчитываем его
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;

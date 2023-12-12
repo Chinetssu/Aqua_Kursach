@@ -32,18 +32,19 @@ namespace Aqua_Kursach
             this.components = new System.ComponentModel.Container();
             this.picDisplay = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tbDirection = new System.Windows.Forms.TrackBar();
             this.lblDirection = new System.Windows.Forms.Label();
             this.tbGravitonPower = new System.Windows.Forms.TrackBar();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.buttonRadar = new System.Windows.Forms.Button();
             this.labelScanHP = new System.Windows.Forms.Label();
+            this.checkBox_Step = new System.Windows.Forms.CheckBox();
+            this.tbTimeTrack = new System.Windows.Forms.TrackBar();
+            this.buttonStep = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGravitonPower)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbTimeTrack)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -58,17 +59,7 @@ namespace Aqua_Kursach
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 20;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // tbDirection
-            // 
-            this.tbDirection.Location = new System.Drawing.Point(791, 45);
-            this.tbDirection.Maximum = 359;
-            this.tbDirection.Name = "tbDirection";
-            this.tbDirection.Size = new System.Drawing.Size(149, 56);
-            this.tbDirection.TabIndex = 1;
-            this.tbDirection.Scroll += new System.EventHandler(this.tbDirection_Scroll);
             // 
             // lblDirection
             // 
@@ -80,30 +71,21 @@ namespace Aqua_Kursach
             // 
             // tbGravitonPower
             // 
-            this.tbGravitonPower.Location = new System.Drawing.Point(791, 134);
+            this.tbGravitonPower.Location = new System.Drawing.Point(793, 57);
             this.tbGravitonPower.Maximum = 100;
             this.tbGravitonPower.Name = "tbGravitonPower";
             this.tbGravitonPower.Size = new System.Drawing.Size(154, 56);
             this.tbGravitonPower.TabIndex = 3;
             this.tbGravitonPower.Scroll += new System.EventHandler(this.tbGravitonPower_Scroll);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(803, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 17);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Направление частиц";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(803, 104);
+            this.label2.Location = new System.Drawing.Point(805, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(166, 17);
+            this.label2.Size = new System.Drawing.Size(150, 17);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Размер гравит. области";
+            this.label2.Text = "Сила гравит. области";
             // 
             // timer2
             // 
@@ -114,7 +96,7 @@ namespace Aqua_Kursach
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(806, 197);
+            this.checkBox1.Location = new System.Drawing.Point(808, 120);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(147, 21);
             this.checkBox1.TabIndex = 6;
@@ -124,7 +106,7 @@ namespace Aqua_Kursach
             // 
             // buttonRadar
             // 
-            this.buttonRadar.Location = new System.Drawing.Point(806, 245);
+            this.buttonRadar.Location = new System.Drawing.Point(808, 168);
             this.buttonRadar.Name = "buttonRadar";
             this.buttonRadar.Size = new System.Drawing.Size(101, 29);
             this.buttonRadar.TabIndex = 7;
@@ -135,31 +117,65 @@ namespace Aqua_Kursach
             // labelScanHP
             // 
             this.labelScanHP.AutoSize = true;
-            this.labelScanHP.Location = new System.Drawing.Point(819, 319);
+            this.labelScanHP.Location = new System.Drawing.Point(923, 174);
             this.labelScanHP.Name = "labelScanHP";
             this.labelScanHP.Size = new System.Drawing.Size(24, 17);
             this.labelScanHP.TabIndex = 8;
             this.labelScanHP.Text = "hp";
+            // 
+            // checkBox_Step
+            // 
+            this.checkBox_Step.AutoSize = true;
+            this.checkBox_Step.Location = new System.Drawing.Point(808, 231);
+            this.checkBox_Step.Name = "checkBox_Step";
+            this.checkBox_Step.Size = new System.Drawing.Size(95, 21);
+            this.checkBox_Step.TabIndex = 9;
+            this.checkBox_Step.Text = "Пошагово";
+            this.checkBox_Step.UseVisualStyleBackColor = true;
+            this.checkBox_Step.CheckedChanged += new System.EventHandler(this.checkBox_Step_CheckedChanged);
+            // 
+            // tbTimeTrack
+            // 
+            this.tbTimeTrack.Location = new System.Drawing.Point(793, 259);
+            this.tbTimeTrack.Maximum = 150;
+            this.tbTimeTrack.Minimum = 10;
+            this.tbTimeTrack.Name = "tbTimeTrack";
+            this.tbTimeTrack.Size = new System.Drawing.Size(154, 56);
+            this.tbTimeTrack.TabIndex = 10;
+            this.tbTimeTrack.Value = 10;
+            this.tbTimeTrack.Scroll += new System.EventHandler(this.tbTimeTrack_Scroll);
+            // 
+            // buttonStep
+            // 
+            this.buttonStep.Enabled = false;
+            this.buttonStep.Location = new System.Drawing.Point(808, 303);
+            this.buttonStep.Name = "buttonStep";
+            this.buttonStep.Size = new System.Drawing.Size(101, 27);
+            this.buttonStep.TabIndex = 11;
+            this.buttonStep.Text = "Шаг";
+            this.buttonStep.UseVisualStyleBackColor = true;
+            this.buttonStep.Click += new System.EventHandler(this.buttonStep_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1013, 500);
+            this.Controls.Add(this.buttonStep);
+            this.Controls.Add(this.tbTimeTrack);
+            this.Controls.Add(this.checkBox_Step);
             this.Controls.Add(this.labelScanHP);
             this.Controls.Add(this.buttonRadar);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.tbGravitonPower);
             this.Controls.Add(this.lblDirection);
-            this.Controls.Add(this.tbDirection);
             this.Controls.Add(this.picDisplay);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGravitonPower)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbTimeTrack)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,15 +185,16 @@ namespace Aqua_Kursach
 
         private System.Windows.Forms.PictureBox picDisplay;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.TrackBar tbDirection;
         private System.Windows.Forms.Label lblDirection;
         private System.Windows.Forms.TrackBar tbGravitonPower;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button buttonRadar;
         private System.Windows.Forms.Label labelScanHP;
+        private System.Windows.Forms.CheckBox checkBox_Step;
+        private System.Windows.Forms.TrackBar tbTimeTrack;
+        private System.Windows.Forms.Button buttonStep;
     }
 }
 

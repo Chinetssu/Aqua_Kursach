@@ -17,7 +17,7 @@ namespace Aqua_Kursach
         public float SpeedX; // скорость перемещения по оси X
         public float SpeedY; // скорость перемещения по оси Y
         public float Life;
-        public float Alight;
+        public bool Alight;
 
         // добавили генератор случайных чисел
         public static Random rand = new Random();
@@ -92,6 +92,7 @@ namespace Aqua_Kursach
         // два новых поля под цвет начальный и конечный
         public Color FromColor;
         public Color ToColor;
+        public bool detailed = true;
 
         // для смеси цветов
         public static Color MixColor(Color color1, Color color2, float k)
@@ -112,8 +113,15 @@ namespace Aqua_Kursach
             // так как k уменьшается от 1 до 0, то порядок цветов обратный
             var color = MixColor(ToColor, FromColor, k);
             var b = new SolidBrush(color);
-
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
+
+            if (detailed)
+            {
+                var p = new Pen(color);
+
+                g.DrawLine(p, X, Y, X + (SpeedX), Y + (SpeedY));
+                p.Dispose();
+            }
 
             b.Dispose();
         }
