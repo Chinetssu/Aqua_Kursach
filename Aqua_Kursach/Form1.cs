@@ -17,7 +17,7 @@ namespace Aqua_Kursach
         TopEmitter rainEmitter;
         GravityPoint gravityPoint;
         Radar radar;
-        Informer informer = new Informer(250, 200);
+        Informer informer = new Informer(0, 0);
 
         public Form1()
         {
@@ -35,6 +35,7 @@ namespace Aqua_Kursach
 
             };
             rainEmitter.Width = picDisplay.Width;
+            
 
             this.fleeEmitter = new Emitter // создаю эмиттер и привязываю его к полю emitter
             {
@@ -224,7 +225,8 @@ namespace Aqua_Kursach
             {
                 if (comp is Emitter)
                 {
-                    foreach(Particle p in (comp as Emitter).particles)
+                        (comp as Emitter).info = false;
+                        foreach (Particle p in (comp as Emitter).particles)
                     {
                         p.Detailed = false;
                     }
@@ -238,6 +240,8 @@ namespace Aqua_Kursach
                 {
                     if (comp is Emitter)
                     {
+                        (comp as Emitter).info = true;
+                        rainEmitter.info = true;
                         foreach (Particle p in (comp as Emitter).particles)
                         {
                             p.Detailed = true;

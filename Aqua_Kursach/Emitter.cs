@@ -34,6 +34,8 @@ namespace Aqua_Kursach
         public float GravitationY = 1; // пусть гравитация будет силой один пиксель за такт, нам хватит
         public int MousePositionX;
         public int MousePositionY;
+
+        public bool info = false;
         public virtual void UpdateState()
         {
             foreach (ImpactPoint point in impactPoints)
@@ -89,6 +91,8 @@ namespace Aqua_Kursach
             {
                 particlesToCreate -= 1;
                 var particle = CreateParticle();
+                if (info)
+                    particle.Detailed = true;
                 ResetParticle(particle);
                 particles.Add(particle);
             }

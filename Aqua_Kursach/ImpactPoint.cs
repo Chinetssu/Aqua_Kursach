@@ -29,8 +29,4 @@ namespace Aqua_Kursach
         }
 
     }
-    public abstract class VariableImpactPoints : ImpactPoint
-    {
-        public abstract void UpdateState();
-    }
 }
